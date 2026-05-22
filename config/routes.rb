@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :booking_add_ons
+  resources :bookings
+  resources :add_ons
+  resources :tours
   resource :session
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

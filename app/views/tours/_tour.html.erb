@@ -1,0 +1,7 @@
+<div id="<%= dom_id tour %>" class="w-full sm:w-auto my-5 space-y-5">
+  <p class="font-medium text-gray-900"><%= tour.name %></p>
+  <% if tour.description.present? %>
+    <p class="text-sm text-gray-500"><%= truncate(tour.description, length: 120) %></p>
+  <% end %>
+  <p class="text-lg font-bold text-gray-900"><%= number_to_currency(tour.base_price) %></p>
+</div>
