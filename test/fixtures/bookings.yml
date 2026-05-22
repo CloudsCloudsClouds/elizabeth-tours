@@ -2,14 +2,14 @@
 
 one:
   note: MyText
-  status: MyString
+  status: pending
   total_price: 9.99
   tour: one
   user: one
 
 two:
   note: MyText
-  status: MyString
+  status: pending
   total_price: 9.99
   tour: two
   user: two
