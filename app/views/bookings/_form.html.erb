@@ -11,7 +11,70 @@
     </div>
   <% end %>
 
+  <% tour = @tour || booking.tour %>
+
+  <% if tour %>
+    <%= form.hidden_field :tour_id, value: tour.id %>
+
+    <div class="my-5">
+      <p class="block font-medium mb-1">Tour</p>
+      <p class="text-gray-900"><%= tour.name %></p>
+      <p class="text-gray-500 text-sm">Base price: <%= number_to_currency(tour.base_price) %></p>
+    </div>
+
+    <% if tour.description.present? %>
+      <div class="my-5">
+        <p class="text-gray-600"><%= tour.description %></p>
+      </div>
+    <% end %>
+
+    <% add_ons = @add_ons || tour.add_ons.status_available %>
+    <% if add_ons.any? %>
+      <div class="my-5">
+        <p class="block font-medium mb-1">Add-ons</p>
+        <div class="space-y-2">
+          <%= form.collection_check_boxes :add_on_ids, add_ons, :id, :name do |cb| %>
+            <div class="flex items-center gap-2">
+              <%= cb.check_box class: "rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500 add-on-checkbox", data: { price: cb.object.price } %>
+              <%= cb.label class: "text-sm font-medium text-gray-900" %>
+              <span class="text-sm text-gray-500">(+<%= number_to_currency(cb.object.price) %>)</span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="my-5">
+      <p class="text-sm font-medium text-gray-900">Total: <span id="total-price"><%= number_to_currency(tour.base_price) %></span></p>
+    </div>
+  <% else %>
+    <div class="my-5">
+      <%= form.label :tour_id, "Select a tour", class: "block font-medium mb-1" %>
+      <%= form.collection_select :tour_id, Tour.all, :id, :name, { include_blank: "Choose a tour..." }, class: "block shadow-sm rounded-md border border-gray-300 outline-hidden px-3 py-2 mt-2 w-full", data: { action: "change->booking#loadAddOns" } %>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :note, class: "block font-medium mb-1" %>
+    <%= form.text_area :note, rows: 4, class: "block shadow-sm rounded-md border border-gray-300 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
   <div class="inline">
     <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
   </div>
+<% end %>
+
+<% if (tour = @tour || (booking.persisted? && booking.tour)) && tour.add_ons.status_available.any? %>
+  <script>
+    document.addEventListener("change", function(e) {
+      if (e.target.matches(".add-on-checkbox")) {
+        var base = <%= tour.base_price.to_d %>;
+        var total = base;
+        document.querySelectorAll(".add-on-checkbox:checked").forEach(function(cb) {
+          total += parseFloat(cb.dataset.price || 0);
+        });
+        document.getElementById("total-price").textContent = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(total);
+      }
+    });
+  </script>
 <% end %>

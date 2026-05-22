@@ -65,6 +65,6 @@ class AddOnsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def add_on_params
-      params.fetch(:add_on, {})
+      params.fetch(:add_on, {}).permit(:name, :price, :status, :tour_id)
     end
 end
