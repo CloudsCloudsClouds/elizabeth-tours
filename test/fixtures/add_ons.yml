@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tour: one
+  name: MyString
+  status: available
+  price: 10.50
+
+two:
+  tour: two
+  name: MyString
+  status: available
+  price: 15.
