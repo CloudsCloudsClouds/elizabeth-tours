@@ -35,7 +35,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     add_on = add_ons(:one)
 
     assert_difference("Booking.count") do
-      post bookings_url, params: { booking: { tour_id: @tour.id, add_on_ids: [add_on.id] } }
+      post bookings_url, params: { booking: { tour_id: @tour.id, add_on_ids: [ add_on.id ] } }
     end
 
     booking = Booking.last

@@ -50,7 +50,7 @@
   <% else %>
     <div class="my-5">
       <%= form.label :tour_id, "Select a tour", class: "block font-medium mb-1" %>
-      <%= form.collection_select :tour_id, Tour.all, :id, :name, { include_blank: "Choose a tour..." }, class: "block shadow-sm rounded-md border border-gray-300 outline-hidden px-3 py-2 mt-2 w-full", data: { action: "change->booking#loadAddOns" } %>
+      <%= form.collection_select :tour_id, Tour.all, :id, :name, { include_blank: "Choose a tour..." }, class: "block shadow-sm rounded-md border border-gray-300 outline-hidden px-3 py-2 mt-2 w-full" %>
     </div>
   <% end %>
 
