@@ -68,3 +68,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "avo", "~> 3.31"
+
+gem "chartkick", "~> 5.2"
+
+gem "csv", "~> 3.3"

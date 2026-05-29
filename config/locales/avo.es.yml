@@ -1,0 +1,25 @@
+es:
+  avo:
+    dashboard: "Dashboard"
+    resource_translations:
+      user:
+        zero: "usuarios"
+        one: "usuario"
+        other: "usuarios"
+      tour:
+        zero: "tours"
+        one: "tour"
+        other: "tours"
+      booking:
+        zero: "reservas"
+        one: "reserva"
+        other: "reservas"
+      booking_add_on:
+        zero: "adicionales de reserva"
+        one: "adicional de reserva"
+        other: "adicionales de reserva"
+      add_on:
+        zero: "adicionales"
+        one: "adicional"
+        other: "adicionales"
+    export_bookings: "Exportar Reservas a CSV"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount_avo
   resources :booking_add_ons
   resources :bookings
   resources :add_ons
