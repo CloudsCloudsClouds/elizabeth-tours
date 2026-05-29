@@ -17,9 +17,11 @@ Avo.configure do |config|
   end
 
   ## == Authentication ==
-  # config.current_user_method = :current_user
-  # config.authenticate_with do
-  # end
+  config.current_user_method do
+    Current.user
+  end
+
+  config.sign_out_path_name = :session_path
 
   ## == Authorization ==
   # config.is_admin_method = :is_admin
@@ -159,10 +161,4 @@ Avo.configure do |config|
   # config.profile_menu = -> {
   #   link "Profile", path: "/avo/profile", icon: "heroicons/outline/user-circle"
   # }
-
-  config.current_user_method do
-    Current.user
-  end
-
-  config.sign_out_path_name = :session_path
 end

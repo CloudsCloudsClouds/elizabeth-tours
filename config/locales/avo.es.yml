@@ -22,3 +22,4 @@ es:
         zero: "adicionales"
         one: "adicional"
         other: "adicionales"
+    export_bookings: "Exportar Reservas a CSV"

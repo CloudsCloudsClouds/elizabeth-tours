@@ -17,4 +17,8 @@ class Avo::Resources::Booking < Avo::BaseResource
     field :booking_add_ons, as: :has_many
     field :add_ons, as: :has_many, through: :booking_add_ons
   end
+
+  def actions
+    action Avo::Actions::ExportBookings
+  end
 end
