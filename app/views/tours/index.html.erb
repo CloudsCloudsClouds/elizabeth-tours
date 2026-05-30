@@ -1,29 +1,21 @@
 <% content_for :title, "Tours" %>
 
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<h1 class="text-4xl font-bold text-base-content mb-8">Tours</h1>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Tours</h1>
-    <%= link_to "New tour", new_tour_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-  </div>
-
-  <div id="tours" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @tours.any? %>
-      <% @tours.each do |tour| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render tour %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", tour, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_tour_path(tour), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", tour, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <% @tours.each do |tour| %>
+    <div class="card card-compact bg-base-100 shadow-md border border-base-300">
+      <div class="card-body">
+        <h2 class="card-title text-secondary"><%= tour.name %></h2>
+        <% if tour.description.present? %>
+          <p class="text-base-content/70 text-sm"><%= truncate(tour.description, length: 120) %></p>
+        <% end %>
+        <p class="text-2xl font-bold text-primary mt-2"><%= number_to_currency(tour.base_price) %></p>
+        <div class="card-actions justify-end mt-4">
+          <%= link_to "View tour", tour, class: "btn btn-outline btn-secondary btn-sm" %>
+          <%= link_to "Book now", new_booking_path(tour_id: tour.id), class: "btn btn-primary btn-sm" %>
         </div>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No tours found.</p>
-    <% end %>
-  </div>
+      </div>
+    </div>
+  <% end %>
 </div>

@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="elizabeth">
   <head>
     <title><%= content_for(:title) || "Eliz Tours" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Eliz Tours">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <% if logged_in? %>
-      <div class="fixed top-4 right-4">
-        <%= button_to "Logout", session_path, method: :delete %>
+    <div class="navbar bg-base-100 fixed top-0 z-10 shadow-sm">
+      <div class="flex-1">
+        <%= link_to "Eliz Tours", root_path, class: "btn btn-ghost text-xl" %>
       </div>
-    <% end %>
-    <main class="container mx-auto mt-28 px-5 flex">
+      <div class="flex-none gap-2">
+        <% if logged_in? %>
+          <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline btn-secondary btn-sm" %>
+        <% end %>
+      </div>
+    </div>
+
+    <main class="container mx-auto mt-24 px-5 py-8">
+      <% if notice = flash[:notice] %>
+        <div class="alert alert-success mb-6 shadow-lg">
+          <span><%= notice %></span>
+        </div>
+      <% end %>
+      <% if alert = flash[:alert] %>
+        <div class="alert alert-error mb-6 shadow-lg">
+          <span><%= alert %></span>
+        </div>
+      <% end %>
       <%= yield %>
     </main>
   </body>
