@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_22_141511) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_29_234211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "add_ons", force: :cascade do |t|
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.string "name"
     t.decimal "price", precision: 10, scale: 2
@@ -36,8 +37,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_22_141511) do
   create_table "bookings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "note"
+    t.integer "num_guests"
     t.string "status"
     t.decimal "total_price"
+    t.datetime "tour_date"
     t.bigint "tour_id", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -67,6 +70,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_22_141511) do
     t.string "email_address", null: false
     t.string "name", default: "", null: false
     t.string "password_digest", null: false
+    t.integer "role", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end

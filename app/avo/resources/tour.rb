@@ -5,12 +5,15 @@ class Avo::Resources::Tour < Avo::BaseResource
   #   query: -> { query.ransack(id_eq: q, m: "or").result(distinct: false) }
   # }
 
+  def actions
+    action Avo::Actions::ExportToCsv
+  end
+
   def fields
     field :id, as: :id
     field :name, as: :text
     field :description, as: :textarea
+    # TODO replace number by money
     field :base_price, as: :number
-    field :add_ons, as: :has_many
-    field :bookings, as: :has_many
   end
 end

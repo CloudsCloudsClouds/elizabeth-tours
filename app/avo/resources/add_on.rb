@@ -5,14 +5,16 @@ class Avo::Resources::AddOn < Avo::BaseResource
   #   query: -> { query.ransack(id_eq: q, m: "or").result(distinct: false) }
   # }
 
+  def actions
+    action Avo::Actions::ExportToCsv
+  end
+
   def fields
     field :id, as: :id
-    field :name, as: :text
-    field :price, as: :number
-    field :status, as: :select, enum: ::AddOn.statuses
-    field :tour_id, as: :number
     field :tour, as: :belongs_to
-    field :booking_add_ons, as: :has_many
-    field :bookings, as: :has_many, through: :booking_add_ons
+    field :name, as: :text
+    # TODO replace number by money
+    field :price, as: :number
+    field :active, as: :boolean, true_value: "1", false_value: "0"
   end
 end

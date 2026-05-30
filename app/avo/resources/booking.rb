@@ -7,18 +7,18 @@ class Avo::Resources::Booking < Avo::BaseResource
 
   def fields
     field :id, as: :id
-    field :note, as: :textarea
-    field :status, as: :select, enum: ::Booking.statuses
-    field :total_price, as: :number
-    field :tour_id, as: :number
-    field :user_id, as: :number
     field :user, as: :belongs_to
     field :tour, as: :belongs_to
-    field :booking_add_ons, as: :has_many
-    field :add_ons, as: :has_many, through: :booking_add_ons
+    # TODO figure out why enum doesn't display
+    field :status, as: :select, enum: ::Booking.statuses
+    field :tour_date, as: :date_time
+    field :num_guests, as: :number
+    # TODO replace number by money
+    field :total_price, as: :number
+    field :note, as: :textarea
   end
 
   def actions
-    action Avo::Actions::ExportBookings
+    action Avo::Actions::ExportToCsv
   end
 end

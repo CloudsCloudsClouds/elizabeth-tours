@@ -24,6 +24,11 @@
   </head>
 
   <body>
+    <% if logged_in? %>
+      <div class="fixed top-4 right-4">
+        <%= button_to "Logout", session_path, method: :delete %>
+      </div>
+    <% end %>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>

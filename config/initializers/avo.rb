@@ -21,6 +21,13 @@ Avo.configure do |config|
     Current.user
   end
 
+  config.authenticate_with do
+    unless Current.user&.admin?
+      flash[:alert] = "You must be an admin to access this page."
+      redirect_to main_app.root_path
+    end
+  end
+
   config.sign_out_path_name = :session_path
 
   ## == Authorization ==
