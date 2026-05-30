@@ -13,6 +13,7 @@ if Rails.env.development?
   admin = User.find_or_create_by!(email_address: "admin@example.com") do |u|
     u.name = "Admin"
     u.password = "password"
+    u.role = 1
   end
 
   customers = [
@@ -24,6 +25,7 @@ if Rails.env.development?
     User.find_or_create_by!(email_address: attrs[:email]) do |u|
       u.name     = attrs[:name]
       u.password = "password"
+      u.role = 0
     end
   end
 

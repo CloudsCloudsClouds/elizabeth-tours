@@ -19,6 +19,6 @@ class Avo::Resources::Booking < Avo::BaseResource
   end
 
   def actions
-    action Avo::Actions::ExportBookings
+    action Avo::Actions::ExportToCsv
   end
 end
