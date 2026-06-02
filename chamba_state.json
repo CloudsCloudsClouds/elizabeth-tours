@@ -1,0 +1,161 @@
+{
+  "results": {
+    "total": 29,
+    "assertions": 87,
+    "passed": 29,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "duration": 5.233241,
+    "timestamp": "2026-06-01T22:01:27.960781635",
+    "coverage_pct": null,
+    "tests": [
+      {
+        "name": "PasswordsControllerTest#test_edit",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "PasswordsControllerTest#test_edit_with_invalid_password_reset_token",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "PasswordsControllerTest#test_create",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "PasswordsControllerTest#test_update",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "PasswordsControllerTest#test_create_for_an_unknown_user_redirects_but_sends_no_mail",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "PasswordsControllerTest#test_new",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "PasswordsControllerTest#test_update_with_non_matching_passwords",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "BookingsControllerTest#test_should_create_booking_with_add_ons",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "BookingsControllerTest#test_should_create_booking",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "BookingsControllerTest#test_should_get_new_with_tour",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "1.96 s",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "LoginsTest#test_can_sign_in_with_valid_credentials",
+        "status": "Passed",
+        "directory": "system"
+      },
+      {
+        "name": "BookingsTest#test_can_create_a_booking_with_add-on",
+        "status": "Passed",
+        "directory": "system"
+      },
+      {
+        "name": "BookingsTest#test_can_create_a_booking",
+        "status": "Passed",
+        "directory": "system"
+      },
+      {
+        "name": "SessionsControllerTest#test_new",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "SessionsControllerTest#test_create_with_valid_credentials",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "SessionsControllerTest#test_create_with_invalid_credentials",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "SessionsControllerTest#test_destroy",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "BookingTest#test_creates_booking_with_multiple_add_ons",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "BookingTest#test_booking_includes_note",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "BookingTest#test_creates_booking_with_no_add_ons",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "BookingTest#test_raises_error_when_add_on_belongs_to_different_tour",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "BookingTest#test_transaction_rollback_on_failure",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "BookingTest#test_creates_booking_with_correct_total_price",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "BookingTest#test_handles_nil_price_on_add_on",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "BookingTest#test_raises_error_when_add_on_does_not_exist",
+        "status": "Passed",
+        "directory": "models"
+      },
+      {
+        "name": "ToursControllerTest#test_should_show_tour",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "ToursControllerTest#test_should_get_index",
+        "status": "Passed",
+        "directory": "controllers"
+      },
+      {
+        "name": "UserTest#test_downcases_and_strips_email_address",
+        "status": "Passed",
+        "directory": "models"
+      }
+    ]
+  },
+  "raw_output": "/*! 🌼 daisyUI 5.5.20 */\nRunning 29 tests in a single process (parallelization threshold is 50)\nRun options: -v --seed 15342\n\n# Running:\n\nPasswordsControllerTest#test_edit = 0.91 s = .\nPasswordsControllerTest#test_edit_with_invalid_password_reset_token = 0.01 s = .\nPasswordsControllerTest#test_create = 0.01 s = .\nPasswordsControllerTest#test_update = 0.02 s = .\nPasswordsControllerTest#test_create_for_an_unknown_user_redirects_but_sends_no_mail = 0.00 s = .\nPasswordsControllerTest#test_new = 0.00 s = .\nPasswordsControllerTest#test_update_with_non_matching_passwords = 0.01 s = .\nBookingsControllerTest#test_should_create_booking_with_add_ons = 0.03 s = .\nBookingsControllerTest#test_should_create_booking = 0.01 s = .\nBookingsControllerTest#test_should_get_new_with_tour = 0.01 s = .\nLoginsTest#test_cannot_sign_in_with_invalid_credentials = Capybara starting Puma...\n* Version 8.0.1, codename: Into the Arena\n* Min threads: 0, max threads: 4\n* Listening on http://127.0.0.1:46859\n1.96 s = .\nLoginsTest#test_can_sign_in_with_valid_credentials = 0.46 s = .\nBookingsTest#test_can_create_a_booking_with_add-on = 0.69 s = .\nBookingsTest#test_can_create_a_booking = 0.66 s = .\nSessionsControllerTest#test_new = 0.00 s = .\nSessionsControllerTest#test_create_with_valid_credentials = 0.19 s = .\nSessionsControllerTest#test_create_with_invalid_credentials = 0.18 s = .\nSessionsControllerTest#test_destroy = 0.01 s = .\nBookingTest#test_creates_booking_with_multiple_add_ons = 0.01 s = .\nBookingTest#test_booking_includes_note = 0.01 s = .\nBookingTest#test_creates_booking_with_no_add_ons = 0.00 s = .\nBookingTest#test_raises_error_when_add_on_belongs_to_different_tour = 0.01 s = .\nBookingTest#test_transaction_rollback_on_failure = 0.00 s = .\nBookingTest#test_creates_booking_with_correct_total_price = 0.01 s = .\nBookingTest#test_handles_nil_price_on_add_on = 0.01 s = .\nBookingTest#test_raises_error_when_add_on_does_not_exist = 0.00 s = .\nToursControllerTest#test_should_show_tour = 0.01 s = .\nToursControllerTest#test_should_get_index = 0.01 s = .\nUserTest#test_downcases_and_strips_email_address = 0.00 s = .\n\nFinished in 5.233241s, 5.5415 runs/s, 16.6245 assertions/s.\n29 runs, 87 assertions, 0 failures, 0 errors, 0 skips\nCoverage report generated for Minitest to /home/danielb/MyProjects/ruby/eliz-tours/coverage.\nLine Coverage: 89.23% (348 / 390)\n\n≈ tailwindcss v4.3.0\n\nDone in 130ms\n"
+}

@@ -18,7 +18,7 @@ class BookingsController < ApplicationController
         tour: @tour,
         num_guests: booking_params[:num_guests],
         tour_date: booking_params[:tour_date],
-        add_on_ids: Array(booking_params[:add_on_ids]),
+        add_on_ids: Array(booking_params[:add_on_ids]).reject(&:blank?),
         note: booking_params[:note]
       )
       redirect_to root_path, notice: "Booking was successfully created."
