@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
+  get "admin/expert_system", to: "admin/expert_system#index"
+
   root "tours#index"
 end

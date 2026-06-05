@@ -1,2 +1,5 @@
 [tools]
 ruby = "4.0.4"
+
+[env]
+EXPT_LINK = "https://craftily-custodian-jet.ngrok-free.dev/"
