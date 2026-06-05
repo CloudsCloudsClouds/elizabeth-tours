@@ -1,74 +1,90 @@
 <%= form_with(model: booking, class: "contents") do |form| %>
   <% if booking.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
-
-      <ul class="list-disc ml-6">
-        <% booking.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div role="alert" class="alert alert-error mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <div>
+        <h3 class="font-bold"><%= t("errors.prohibited", count: booking.errors.count) %></h3>
+        <ul class="list-disc ml-4 text-sm">
+          <% booking.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <% tour = @tour || booking.tour %>
+  <%= form.hidden_field :tour_id, value: @tour.id %>
 
-  <% if tour %>
-    <%= form.hidden_field :tour_id, value: tour.id %>
-
-    <div class="my-5">
-      <p class="block font-medium mb-1">Tour</p>
-      <p class="text-gray-900"><%= tour.name %></p>
-      <p class="text-gray-500 text-sm">Base price: <%= number_to_currency(tour.base_price) %></p>
+  <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
+    <div class="card-body">
+      <h2 class="card-title text-secondary"><%= @tour.translated_name %></h2>
+      <% if @tour.description.present? %>
+        <p class="text-base-content/70 text-sm"><%= @tour.translated_description %></p>
+      <% end %>
+      <p class="text-lg font-semibold text-primary mt-2"><%= t(".base_price") %> <%= number_to_currency(@tour.base_price) %></p>
     </div>
+  </div>
 
-    <% if tour.description.present? %>
-      <div class="my-5">
-        <p class="text-gray-600"><%= tour.description %></p>
+  <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
+    <div class="card-body space-y-4">
+      <div class="form-control w-full">
+        <%= form.label :num_guests, t(".num_guests"), class: "label-text font-medium mb-1" %>
+        <%= form.number_field :num_guests, min: 1, class: "input input-bordered w-full", required: true %>
       </div>
-    <% end %>
 
-    <% add_ons = @add_ons || tour.add_ons.status_available %>
-    <% if add_ons.any? %>
-      <div class="my-5">
-        <p class="block font-medium mb-1">Add-ons</p>
-        <div class="space-y-2">
-          <%= form.collection_check_boxes :add_on_ids, add_ons, :id, :name do |cb| %>
-            <div class="flex items-center gap-2">
-              <%= cb.check_box class: "rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500 add-on-checkbox", data: { price: cb.object.price } %>
-              <%= cb.label class: "text-sm font-medium text-gray-900" %>
-              <span class="text-sm text-gray-500">(+<%= number_to_currency(cb.object.price) %>)</span>
+      <div class="form-control w-full">
+        <%= form.label :tour_date, t(".tour_date"), class: "label-text font-medium mb-1" %>
+        <%= form.date_field :tour_date, class: "input input-bordered w-full", required: true %>
+      </div>
+    </div>
+  </div>
+
+  <% if @add_ons.any? %>
+    <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
+      <div class="card-body">
+        <h3 class="card-title text-sm text-secondary"><%= t(".add_ons") %></h3>
+        <div class="space-y-3">
+          <%= form.collection_check_boxes :add_on_ids, @add_ons, :id, :translated_name do |cb| %>
+            <div class="flex items-center gap-3">
+              <label class="flex items-center gap-3 cursor-pointer">
+                <%= cb.check_box class: "checkbox checkbox-primary add-on-checkbox", data: { price: cb.object.price } %>
+                <span class="label-text"><%= cb.object.translated_name %></span>
+              </label>
+              <span class="text-sm text-base-content/60">(+<%= number_to_currency(cb.object.price) %>)</span>
             </div>
           <% end %>
         </div>
       </div>
-    <% end %>
-
-    <div class="my-5">
-      <p class="text-sm font-medium text-gray-900">Total: <span id="total-price"><%= number_to_currency(tour.base_price) %></span></p>
-    </div>
-  <% else %>
-    <div class="my-5">
-      <%= form.label :tour_id, "Select a tour", class: "block font-medium mb-1" %>
-      <%= form.collection_select :tour_id, Tour.all, :id, :name, { include_blank: "Choose a tour..." }, class: "block shadow-sm rounded-md border border-gray-300 outline-hidden px-3 py-2 mt-2 w-full" %>
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :note, class: "block font-medium mb-1" %>
-    <%= form.text_area :note, rows: 4, class: "block shadow-sm rounded-md border border-gray-300 outline-hidden px-3 py-2 mt-2 w-full" %>
+  <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
+    <div class="card-body">
+      <div class="form-control w-full">
+        <%= form.label :note, t(".note"), class: "label-text font-medium mb-1" %>
+        <%= form.text_area :note, rows: 3, class: "textarea textarea-bordered w-full", placeholder: t(".note_placeholder") %>
+      </div>
+    </div>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
+    <div class="card-body">
+      <div class="flex items-center justify-between">
+        <p class="text-lg font-semibold"><%= t(".total") %> <span id="total-price" class="text-primary"><%= number_to_currency(@tour.base_price) %></span></p>
+        <div class="flex gap-3">
+          <%= link_to t(".cancel"), tours_path, class: "btn btn-ghost" %>
+          <%= form.submit t(".confirm"), class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
 
-<% if (tour = @tour || (booking.persisted? && booking.tour)) && tour.add_ons.status_available.any? %>
+<% if @add_ons.any? %>
   <script>
     document.addEventListener("change", function(e) {
       if (e.target.matches(".add-on-checkbox")) {
-        var base = <%= tour.base_price.to_d %>;
+        var base = <%= @tour.base_price.to_d %>;
         var total = base;
         document.querySelectorAll(".add-on-checkbox:checked").forEach(function(cb) {
           total += parseFloat(cb.dataset.price || 0);

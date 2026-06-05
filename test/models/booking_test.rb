@@ -13,6 +13,8 @@ class BookingTest < ActiveSupport::TestCase
     booking = Booking.create_with_add_ons(
       user: @user,
       tour: @tour,
+      num_guests: 2,
+      tour_date: Date.tomorrow,
       add_on_ids: [ @add_on.id ]
     )
 
@@ -27,7 +29,9 @@ class BookingTest < ActiveSupport::TestCase
   test "creates booking with no add_ons" do
     booking = Booking.create_with_add_ons(
       user: @user,
-      tour: @tour
+      tour: @tour,
+      num_guests: 2,
+      tour_date: Date.tomorrow
     )
 
     assert booking.persisted?
@@ -44,6 +48,8 @@ class BookingTest < ActiveSupport::TestCase
     booking = Booking.create_with_add_ons(
       user: @user,
       tour: @tour,
+      num_guests: 2,
+      tour_date: Date.tomorrow,
       add_on_ids: [ @add_on.id, second_add_on.id ]
     )
 
@@ -60,6 +66,8 @@ class BookingTest < ActiveSupport::TestCase
       Booking.create_with_add_ons(
         user: @user,
         tour: @tour,
+        num_guests: 2,
+        tour_date: Date.tomorrow,
         add_on_ids: [ other_add_on.id ]
       )
     end
@@ -72,6 +80,8 @@ class BookingTest < ActiveSupport::TestCase
       Booking.create_with_add_ons(
         user: @user,
         tour: @tour,
+        num_guests: 2,
+        tour_date: Date.tomorrow,
         add_on_ids: [ non_existent_id ]
       )
     end
@@ -84,6 +94,8 @@ class BookingTest < ActiveSupport::TestCase
       Booking.create_with_add_ons(
         user: @user,
         tour: @tour,
+        num_guests: 2,
+        tour_date: Date.tomorrow,
         add_on_ids: [ 99999 ]
       )
     end
@@ -95,6 +107,8 @@ class BookingTest < ActiveSupport::TestCase
     booking = Booking.create_with_add_ons(
       user: @user,
       tour: @tour,
+      num_guests: 2,
+      tour_date: Date.tomorrow,
       note: "Special requests"
     )
     assert_equal "Special requests", booking.note
@@ -106,6 +120,8 @@ class BookingTest < ActiveSupport::TestCase
     booking = Booking.create_with_add_ons(
       user: @user,
       tour: @tour,
+      num_guests: 2,
+      tour_date: Date.tomorrow,
       add_on_ids: [ @add_on.id ]
     )
 

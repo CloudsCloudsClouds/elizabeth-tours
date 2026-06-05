@@ -74,3 +74,5 @@ gem "avo", "~> 3.31"
 gem "chartkick", "~> 5.2"
 
 gem "csv", "~> 3.3"
+
+gem "simplecov", "~> 0.22.0"

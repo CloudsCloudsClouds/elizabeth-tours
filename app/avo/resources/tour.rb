@@ -12,8 +12,11 @@ class Avo::Resources::Tour < Avo::BaseResource
   def fields
     field :id, as: :id
     field :name, as: :text
+    field :name_es, as: :text, name: "Nombre (ES)"
     field :description, as: :textarea
+    field :description_es, as: :textarea, name: "Descripción (ES)"
     # TODO replace number by money
     field :base_price, as: :number
+    field :images, as: :files, is_image: true
   end
 end

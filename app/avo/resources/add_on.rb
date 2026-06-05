@@ -13,6 +13,7 @@ class Avo::Resources::AddOn < Avo::BaseResource
     field :id, as: :id
     field :tour, as: :belongs_to
     field :name, as: :text
+    field :name_es, as: :text, name: "Nombre (ES)"
     # TODO replace number by money
     field :price, as: :number
     field :active, as: :boolean, true_value: "1", false_value: "0"

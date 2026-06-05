@@ -1,16 +1,55 @@
-<% content_for :title, "Showing tour" %>
+<% content_for :title, @tour.translated_name %>
 
-<div class="md:w-2/3 w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<div class="max-w-4xl mx-auto">
+  <div class="card bg-base-100 shadow-md border border-base-300">
+    <% if @tour.images.attached? && @tour.images.any? %>
+      <div data-controller="carousel" data-carousel-index-value="0">
+        <figure>
+          <div data-action="mouseenter->carousel#pause mouseleave->carousel#resume"
+               class="carousel w-full">
+            <% @tour.images.each do |image| %>
+              <div data-carousel-target="slide" class="carousel-item w-full">
+                <%= image_tag image, class: "w-full" %>
+              </div>
+            <% end %>
+          </div>
+        </figure>
+        <% if @tour.images.many? %>
+          <div class="flex justify-center items-center gap-3 py-3">
+            <button data-action="carousel#previous" class="btn btn-outline btn-sm">❮</button>
+            <span class="text-sm text-base-content/60"><%= pluralize(@tour.images.count, "image") %></span>
+            <button data-action="carousel#next" class="btn btn-outline btn-sm">❯</button>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <figure>
+        <div class="w-full h-64 bg-base-200 flex items-center justify-center">
+          <span class="text-error font-semibold"><%= t("no_images") %></span>
+        </div>
+      </figure>
+    <% end %>
 
-  <h1 class="font-bold text-4xl">Showing tour</h1>
+    <div class="card-body">
+      <h1 class="text-4xl font-bold text-secondary"><%= @tour.translated_name %></h1>
 
-  <%= render @tour %>
+      <% if @tour.translated_description.present? %>
+        <p class="text-base-content/70 mt-4 text-lg leading-relaxed"><%= @tour.translated_description %></p>
+      <% end %>
 
-  <%= link_to "Book this tour", new_booking_path(tour_id: @tour.id), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium" %>
-  <%= link_to "Edit this tour", edit_tour_path(@tour), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to tours", tours_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this tour", @tour, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+      <div class="divider"></div>
+
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-base-content/60"><%= t(".price_per_person") %></p>
+          <p class="text-3xl font-bold text-primary"><%= number_to_currency(@tour.base_price) %></p>
+        </div>
+
+        <div class="flex gap-3">
+          <%= link_to t(".back"), tours_path, class: "btn btn-ghost" %>
+          <%= link_to t(".book"), new_booking_path(tour_id: @tour.id), class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

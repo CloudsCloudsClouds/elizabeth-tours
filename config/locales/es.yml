@@ -1,0 +1,58 @@
+es:
+  layout:
+    brand: "Eliz Tours"
+    logout: "Cerrar sesión"
+    lang_en: "EN"
+    lang_es: "ES"
+
+  tours:
+    index:
+      title: "Tours"
+    card:
+      view: "Ver tour"
+      book: "Reservar"
+    show:
+      back: "Volver a tours"
+      book: "Reservar este tour"
+      price_per_person: "Precio por persona"
+
+  bookings:
+    new:
+      title: "Reservar un tour"
+    form:
+      num_guests: "Número de invitados"
+      tour_date: "Fecha del tour"
+      add_ons: "Adicionales"
+      note: "Nota"
+      note_placeholder: "Solicitudes especiales..."
+      base_price: "Precio base:"
+      total: "Total:"
+      cancel: "Cancelar"
+      confirm: "Confirmar reserva"
+
+  sessions:
+    new:
+      title: "Iniciar sesión"
+      email_placeholder: "Correo electrónico"
+      password_placeholder: "Contraseña"
+      sign_in: "Iniciar sesión"
+      forgot_password: "¿Olvidaste tu contraseña?"
+
+  passwords:
+    new:
+      title: "¿Olvidaste tu contraseña?"
+      description: "Ingresa tu correo y te enviaremos un enlace de restablecimiento."
+      email_placeholder: "Correo electrónico"
+      submit: "Enviar instrucciones"
+    edit:
+      title: "Actualizar tu contraseña"
+      new_password_placeholder: "Nueva contraseña"
+      confirm_password_placeholder: "Confirmar nueva contraseña"
+      save: "Guardar"
+
+  no_images: "Sin imágenes"
+
+  errors:
+    prohibited:
+      one: "%{count} error prohibió esta reserva:"
+      other: "%{count} errores prohibieron esta reserva:"
