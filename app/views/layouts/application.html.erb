@@ -22,6 +22,10 @@
       </div>
       <div class="flex-none gap-2">
         <% if logged_in? %>
+          <div class="flex items-center gap-2">
+            <%= image_tag "https://api.dicebear.com/9.x/shapes/svg?seed=#{Current.user.name}", class: "w-8 h-8 rounded-full shrink-0", alt: Current.user.name %>
+            <span class="text-sm text-base-content/70 hidden sm:inline"><%= Current.user.name %></span>
+          </div>
           <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline btn-secondary btn-sm" %>
         <% end %>
       </div>

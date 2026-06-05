@@ -4,7 +4,16 @@
 
 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
   <% @tours.each do |tour| %>
-    <div class="card card-compact bg-base-100 shadow-md border border-base-300">
+    <div class="card bg-base-100 shadow-md border border-base-300">
+      <figure>
+        <% if tour.images.attached? %>
+          <%= image_tag tour.images.first, class: "w-full h-48 object-cover" %>
+        <% else %>
+          <div class="w-full h-48 bg-base-200 flex items-center justify-center">
+            <span class="text-error font-semibold text-sm">No images</span>
+          </div>
+        <% end %>
+      </figure>
       <div class="card-body">
         <h2 class="card-title text-secondary"><%= tour.name %></h2>
         <% if tour.description.present? %>

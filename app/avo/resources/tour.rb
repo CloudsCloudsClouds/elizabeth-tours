@@ -15,5 +15,6 @@ class Avo::Resources::Tour < Avo::BaseResource
     field :description, as: :textarea
     # TODO replace number by money
     field :base_price, as: :number
+    field :images, as: :files, is_image: true
   end
 end
