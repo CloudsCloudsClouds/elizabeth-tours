@@ -1,19 +1,19 @@
 <div class="max-w-md mx-auto">
-  <h1 class="text-3xl font-bold text-secondary mb-8">Sign in</h1>
+  <h1 class="text-3xl font-bold text-secondary mb-8"><%= t(".title") %></h1>
 
   <%= form_with url: session_url, class: "card bg-base-100 shadow-md border border-base-300" do |form| %>
     <div class="card-body space-y-4">
       <div class="form-control w-full">
-        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Email address", value: params[:email_address], class: "input input-bordered w-full" %>
+        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: t(".email_placeholder"), value: params[:email_address], class: "input input-bordered w-full" %>
       </div>
 
       <div class="form-control w-full">
-        <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Password", maxlength: 72, class: "input input-bordered w-full" %>
+        <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), maxlength: 72, class: "input input-bordered w-full" %>
       </div>
 
       <div class="flex items-center justify-between">
-        <%= form.submit "Sign in", class: "btn btn-primary" %>
-        <%= link_to "Forgot password?", new_password_path, class: "link link-hover text-sm" %>
+        <%= form.submit t(".sign_in"), class: "btn btn-primary" %>
+        <%= link_to t(".forgot_password"), new_password_path, class: "link link-hover text-sm" %>
       </div>
     </div>
   <% end %>

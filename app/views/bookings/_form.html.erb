@@ -3,7 +3,7 @@
     <div role="alert" class="alert alert-error mb-6">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
       <div>
-        <h3 class="font-bold"><%= pluralize(booking.errors.count, "error") %> prohibited this booking:</h3>
+        <h3 class="font-bold"><%= t("errors.prohibited", count: booking.errors.count) %></h3>
         <ul class="list-disc ml-4 text-sm">
           <% booking.errors.each do |error| %>
             <li><%= error.full_message %></li>
@@ -17,23 +17,23 @@
 
   <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
     <div class="card-body">
-      <h2 class="card-title text-secondary"><%= @tour.name %></h2>
+      <h2 class="card-title text-secondary"><%= @tour.translated_name %></h2>
       <% if @tour.description.present? %>
-        <p class="text-base-content/70 text-sm"><%= @tour.description %></p>
+        <p class="text-base-content/70 text-sm"><%= @tour.translated_description %></p>
       <% end %>
-      <p class="text-lg font-semibold text-primary mt-2">Base price: <%= number_to_currency(@tour.base_price) %></p>
+      <p class="text-lg font-semibold text-primary mt-2"><%= t(".base_price") %> <%= number_to_currency(@tour.base_price) %></p>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
     <div class="card-body space-y-4">
       <div class="form-control w-full">
-        <%= form.label :num_guests, "Number of guests", class: "label-text font-medium mb-1" %>
+        <%= form.label :num_guests, t(".num_guests"), class: "label-text font-medium mb-1" %>
         <%= form.number_field :num_guests, min: 1, class: "input input-bordered w-full", required: true %>
       </div>
 
       <div class="form-control w-full">
-        <%= form.label :tour_date, "Tour date", class: "label-text font-medium mb-1" %>
+        <%= form.label :tour_date, t(".tour_date"), class: "label-text font-medium mb-1" %>
         <%= form.date_field :tour_date, class: "input input-bordered w-full", required: true %>
       </div>
     </div>
@@ -42,13 +42,13 @@
   <% if @add_ons.any? %>
     <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
       <div class="card-body">
-        <h3 class="card-title text-sm text-secondary">Add-ons</h3>
+        <h3 class="card-title text-sm text-secondary"><%= t(".add_ons") %></h3>
         <div class="space-y-3">
-          <%= form.collection_check_boxes :add_on_ids, @add_ons, :id, :name do |cb| %>
+          <%= form.collection_check_boxes :add_on_ids, @add_ons, :id, :translated_name do |cb| %>
             <div class="flex items-center gap-3">
               <label class="flex items-center gap-3 cursor-pointer">
                 <%= cb.check_box class: "checkbox checkbox-primary add-on-checkbox", data: { price: cb.object.price } %>
-                <span class="label-text"><%= cb.object.name %></span>
+                <span class="label-text"><%= cb.object.translated_name %></span>
               </label>
               <span class="text-sm text-base-content/60">(+<%= number_to_currency(cb.object.price) %>)</span>
             </div>
@@ -61,8 +61,8 @@
   <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
     <div class="card-body">
       <div class="form-control w-full">
-        <%= form.label :note, class: "label-text font-medium mb-1" %>
-        <%= form.text_area :note, rows: 3, class: "textarea textarea-bordered w-full", placeholder: "Special requests..." %>
+        <%= form.label :note, t(".note"), class: "label-text font-medium mb-1" %>
+        <%= form.text_area :note, rows: 3, class: "textarea textarea-bordered w-full", placeholder: t(".note_placeholder") %>
       </div>
     </div>
   </div>
@@ -70,10 +70,10 @@
   <div class="card bg-base-100 shadow-md border border-base-300 mb-6">
     <div class="card-body">
       <div class="flex items-center justify-between">
-        <p class="text-lg font-semibold">Total: <span id="total-price" class="text-primary"><%= number_to_currency(@tour.base_price) %></span></p>
+        <p class="text-lg font-semibold"><%= t(".total") %> <span id="total-price" class="text-primary"><%= number_to_currency(@tour.base_price) %></span></p>
         <div class="flex gap-3">
-          <%= link_to "Cancel", tours_path, class: "btn btn-ghost" %>
-          <%= form.submit "Confirm booking", class: "btn btn-primary" %>
+          <%= link_to t(".cancel"), tours_path, class: "btn btn-ghost" %>
+          <%= form.submit t(".confirm"), class: "btn btn-primary" %>
         </div>
       </div>
     </div>

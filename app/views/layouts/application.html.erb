@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html data-theme="elizabeth">
+<html lang="<%= I18n.locale %>" data-theme="elizabeth">
   <head>
-    <title><%= content_for(:title) || "Eliz Tours" %></title>
+    <title><%= content_for(:title) || t("layout.brand") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -18,15 +18,17 @@
   <body>
     <div class="navbar bg-base-100 fixed top-0 z-10 shadow-sm">
       <div class="flex-1">
-        <%= link_to "Eliz Tours", root_path, class: "btn btn-ghost text-xl" %>
+        <%= link_to t("layout.brand"), root_path, class: "btn btn-ghost text-xl" %>
       </div>
       <div class="flex-none gap-2">
+        <% target_locale = I18n.locale == :en ? :es : :en %>
+        <%= link_to t("layout.lang_#{target_locale}"), url_for(locale: target_locale), class: "btn btn-ghost btn-sm" %>
         <% if logged_in? %>
           <div class="flex items-center gap-2">
             <%= image_tag "https://api.dicebear.com/9.x/shapes/svg?seed=#{Current.user.name}", class: "w-8 h-8 rounded-full shrink-0", alt: Current.user.name %>
             <span class="text-sm text-base-content/70 hidden sm:inline"><%= Current.user.name %></span>
           </div>
-          <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline btn-secondary btn-sm" %>
+          <%= button_to t("layout.logout"), session_path, method: :delete, class: "btn btn-outline btn-secondary btn-sm" %>
         <% end %>
       </div>
     </div>

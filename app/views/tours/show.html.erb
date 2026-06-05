@@ -1,4 +1,4 @@
-<% content_for :title, @tour.name %>
+<% content_for :title, @tour.translated_name %>
 
 <div class="max-w-4xl mx-auto">
   <div class="card bg-base-100 shadow-md border border-base-300">
@@ -25,29 +25,29 @@
     <% else %>
       <figure>
         <div class="w-full h-64 bg-base-200 flex items-center justify-center">
-          <span class="text-error font-semibold">No images</span>
+          <span class="text-error font-semibold"><%= t("no_images") %></span>
         </div>
       </figure>
     <% end %>
 
     <div class="card-body">
-      <h1 class="text-4xl font-bold text-secondary"><%= @tour.name %></h1>
+      <h1 class="text-4xl font-bold text-secondary"><%= @tour.translated_name %></h1>
 
-      <% if @tour.description.present? %>
-        <p class="text-base-content/70 mt-4 text-lg leading-relaxed"><%= @tour.description %></p>
+      <% if @tour.translated_description.present? %>
+        <p class="text-base-content/70 mt-4 text-lg leading-relaxed"><%= @tour.translated_description %></p>
       <% end %>
 
       <div class="divider"></div>
 
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-sm text-base-content/60">Price per person</p>
+          <p class="text-sm text-base-content/60"><%= t(".price_per_person") %></p>
           <p class="text-3xl font-bold text-primary"><%= number_to_currency(@tour.base_price) %></p>
         </div>
 
         <div class="flex gap-3">
-          <%= link_to "Back to tours", tours_path, class: "btn btn-ghost" %>
-          <%= link_to "Book this tour", new_booking_path(tour_id: @tour.id), class: "btn btn-primary" %>
+          <%= link_to t(".back"), tours_path, class: "btn btn-ghost" %>
+          <%= link_to t(".book"), new_booking_path(tour_id: @tour.id), class: "btn btn-primary" %>
         </div>
       </div>
     </div>

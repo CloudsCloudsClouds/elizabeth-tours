@@ -1,16 +1,16 @@
 <div class="max-w-md mx-auto">
-  <h1 class="text-3xl font-bold text-secondary mb-8">Forgot your password?</h1>
+  <h1 class="text-3xl font-bold text-secondary mb-8"><%= t(".title") %></h1>
 
   <%= form_with url: passwords_path, class: "card bg-base-100 shadow-md border border-base-300" do |form| %>
     <div class="card-body space-y-4">
-      <p class="text-base-content/70 text-sm">Enter your email and we'll send you a reset link.</p>
+      <p class="text-base-content/70 text-sm"><%= t(".description") %></p>
 
       <div class="form-control w-full">
-        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Email address", value: params[:email_address], class: "input input-bordered w-full" %>
+        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: t(".email_placeholder"), value: params[:email_address], class: "input input-bordered w-full" %>
       </div>
 
       <div>
-        <%= form.submit "Email reset instructions", class: "btn btn-primary" %>
+        <%= form.submit t(".submit"), class: "btn btn-primary" %>
       </div>
     </div>
   <% end %>
