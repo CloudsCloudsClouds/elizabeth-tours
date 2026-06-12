@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  mount_avo
+  namespace :admin do
+    resources :add_ons
+    resources :bookings
+    resources :booking_add_ons
+    resources :tours
+    resources :users
+
+    root to: "tours#index"
+  end
   resources :tours, only: [ :index, :show ]
   resources :bookings, only: [ :new, :create ]
   resource :session

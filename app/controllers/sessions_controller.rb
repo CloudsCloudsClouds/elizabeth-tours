@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     if user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for user
       if Current.user.admin?
-        redirect_to avo.root_path
+        redirect_to admin_root_path
       else
         redirect_to after_authentication_url
       end

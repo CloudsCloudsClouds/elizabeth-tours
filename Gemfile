@@ -69,9 +69,9 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "avo", "~> 3.31"
+gem "administrate"
 
-gem "chartkick", "~> 5.2"
+gem "administrate-field-active_storage"
 
 gem "csv", "~> 3.3"
 
