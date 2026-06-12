@@ -17,3 +17,10 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
   end
 end
+
+class ActionDispatch::IntegrationTest
+  def sign_in_as_admin
+    @admin = users(:admin)
+    sign_in_as(@admin)
+  end
+end

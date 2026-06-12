@@ -1,4 +1,5 @@
 class Tour < ApplicationRecord
+  has_paper_trail
   has_many :add_ons, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many_attached :images

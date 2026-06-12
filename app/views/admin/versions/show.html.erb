@@ -1,0 +1,73 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="mb-6">
+    <%= link_to "← Back to Activity Log", admin_versions_path, class: "text-sm text-gray-500 hover:text-gray-700" %>
+  </div>
+
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">Version Details</h1>
+
+  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <dl class="grid grid-cols-2 gap-4">
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Resource</dt>
+        <dd class="text-lg"><%= @version.item_type %> #<%= @version.item_id %></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Action</dt>
+        <dd>
+          <span class="badge <%= @version.event == 'create' ? 'badge-success' : @version.event == 'destroy' ? 'badge-error' : 'badge-info' %>">
+            <%= @version.event %>
+          </span>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">When</dt>
+        <dd><%= @version.created_at.strftime("%Y-%m-%d %H:%M:%S") %></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Admin</dt>
+        <dd>
+          <% if @version.whodunnit.present? %>
+            <% user = User.find_by(id: @version.whodunnit) %>
+            <%= user&.email_address || "User ##{@version.whodunnit}" %>
+          <% else %>
+            <span class="text-gray-400">System</span>
+          <% end %>
+        </dd>
+      </div>
+
+    </dl>
+  </div>
+
+  <% if @version.event == "destroy" && @version.object.present? %>
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">Deleted Data</h2>
+      <pre class="bg-gray-50 p-4 rounded-lg overflow-x-auto text-sm"><%= JSON.pretty_generate(PaperTrail.serializer.load(@version.object)) rescue @version.object %></pre>
+    </div>
+  <% end %>
+
+  <% if @version.object_changes.present? %>
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">Changes</h2>
+      <% changes = PaperTrail.serializer.load(@version.object_changes) rescue {} %>
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Old Value</th>
+            <th>New Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% changes.each do |field, values| %>
+            <% old_val, new_val = values.is_a?(Array) ? [values.first, values.last] : [nil, values] %>
+            <tr>
+              <td class="font-mono text-sm"><%= field %></td>
+              <td class="text-sm"><%= old_val.inspect %></td>
+              <td class="text-sm"><%= new_val.inspect %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

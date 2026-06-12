@@ -73,6 +73,8 @@ gem "administrate"
 
 gem "administrate-field-active_storage"
 
+gem "paper_trail"
+
 gem "csv", "~> 3.3"
 
 gem "simplecov", "~> 0.22.0"

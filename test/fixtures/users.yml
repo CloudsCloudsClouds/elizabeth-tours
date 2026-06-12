@@ -7,3 +7,9 @@ two:
   email_address: two@example.com
   name: two
   password_digest: <%= BCrypt::Password.create("password") %>
+
+admin:
+  email_address: admin@example.com
+  name: admin
+  role: 1
+  password_digest: <%= BCrypt::Password.create("password") %>

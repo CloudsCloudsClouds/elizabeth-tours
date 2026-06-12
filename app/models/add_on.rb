@@ -1,4 +1,5 @@
 class AddOn < ApplicationRecord
+  has_paper_trail
   belongs_to :tour
   has_many :booking_add_ons, dependent: :destroy
   has_many :bookings, through: :booking_add_ons

@@ -1,0 +1,81 @@
+<div class="max-w-7xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">Activity Log</h1>
+
+  <div class="mb-4 flex gap-2">
+    <%= form_tag admin_versions_path, method: :get, class: "flex gap-2 items-end" do %>
+      <div>
+        <%= label_tag :item_type, "Resource", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= select_tag :item_type,
+            options_for_select(PaperTrail::Version.distinct.order(:item_type).pluck(:item_type), params[:item_type]),
+            prompt: "All",
+            class: "select select-bordered select-sm" %>
+      </div>
+      <div>
+        <%= label_tag :event, "Action", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= select_tag :event,
+            options_for_select(%w[create update destroy], params[:event]),
+            prompt: "All",
+            class: "select select-bordered select-sm" %>
+      </div>
+      <div>
+        <%= submit_tag "Filter", class: "btn btn-primary btn-sm" %>
+        <%= link_to "Clear", admin_versions_path, class: "btn btn-ghost btn-sm" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <table class="table table-zebra w-full">
+      <thead>
+        <tr>
+          <th>When</th>
+          <th>Admin</th>
+          <th>Action</th>
+          <th>Resource</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @versions.each do |version| %>
+          <tr>
+            <td class="text-sm whitespace-nowrap"><%= version.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+            <td>
+              <% if version.whodunnit.present? %>
+                <% user = User.find_by(id: version.whodunnit) %>
+                <%= user&.email_address || "User ##{version.whodunnit}" %>
+              <% else %>
+                <span class="text-gray-400">System</span>
+              <% end %>
+            </td>
+            <td>
+              <span class="badge <%= version.event == 'create' ? 'badge-success' : version.event == 'destroy' ? 'badge-error' : 'badge-info' %>">
+                <%= version.event %>
+              </span>
+            </td>
+            <td>
+              <% resource_path = "/admin/#{version.item_type.tableize}/#{version.item_id}" rescue "#" %>
+              <%= link_to "#{version.item_type} ##{version.item_id}",
+                  resource_path,
+                  class: "link link-primary" %>
+            </td>
+            <td>
+              <%= link_to "View", admin_version_path(version), class: "btn btn-xs btn-outline" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4 flex justify-between items-center text-sm text-gray-600">
+    <span><%= @total_count %> total entries</span>
+    <div class="flex gap-2">
+      <% if @page > 1 %>
+        <%= link_to "Previous", admin_versions_path(page: @page - 1, item_type: params[:item_type], event: params[:event]), class: "btn btn-outline btn-sm" %>
+      <% end %>
+      <% if @versions.size == @per_page %>
+        <%= link_to "Next", admin_versions_path(page: @page + 1, item_type: params[:item_type], event: params[:event]), class: "btn btn-outline btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+</div>

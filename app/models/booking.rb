@@ -1,4 +1,5 @@
 class Booking < ApplicationRecord
+  has_paper_trail
   belongs_to :user
   belongs_to :tour
   has_many :booking_add_ons, dependent: :destroy
