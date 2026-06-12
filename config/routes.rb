@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  mount_avo
+  namespace :admin do
+    resources :add_ons
+    resources :bookings
+    resources :booking_add_ons
+    resources :tours
+    resources :users
+
+    root to: "tours#index"
+  end
   resources :tours, only: [ :index, :show ]
   resources :bookings, only: [ :new, :create ]
   resource :session
@@ -14,6 +22,7 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
+  get "admin/expert_system", to: "admin/expert_system#index"
+
   root "tours#index"
 end

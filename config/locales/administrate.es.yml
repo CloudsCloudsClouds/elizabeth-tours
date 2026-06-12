@@ -1,0 +1,52 @@
+es:
+  administrate:
+    actions:
+      new: "Nuevo"
+      edit: "Editar"
+      show: "Mostrar"
+      destroy: "Eliminar"
+      back: "Volver"
+      confirm: "¿Estás seguro?"
+    controller:
+      create:
+        success: "%{resource} creado correctamente."
+      update:
+        success: "%{resource} actualizado correctamente."
+      destroy:
+        success: "%{resource} eliminado correctamente."
+    fields:
+      select:
+        blank: "Seleccionar"
+  admin:
+    field_translations:
+      id: "ID"
+      email_address: "Correo electrónico"
+      name: "Nombre"
+      name_es: "Nombre (ES)"
+      description: "Descripción"
+      description_es: "Descripción (ES)"
+      base_price: "Precio base"
+      price: "Precio"
+      total_price: "Precio total"
+      user: "Usuario"
+      tour: "Tour"
+      add_on: "Adicional"
+      status: "Estado"
+      tour_date: "Fecha del tour"
+      num_guests: "Número de invitados"
+      note: "Nota"
+      active: "Activo"
+      sessions: "Sesiones"
+      bookings: "Reservas"
+      tours: "Tours"
+      role: "Rol"
+      images: "Imágenes"
+      ip_address: "Dirección IP"
+      user_agent: "Agente de usuario"
+  helpers:
+    label:
+      tour:
+        name_es: "Nombre (ES)"
+        description_es: "Descripción (ES)"
+      add_on:
+        name_es: "Nombre (ES)"

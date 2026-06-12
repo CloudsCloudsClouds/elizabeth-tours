@@ -11,15 +11,11 @@ class ApplicationController < ActionController::Base
   private
 
   def switch_locale(&action)
-    if request.path.start_with?("/avo")
-      yield
-    else
-      locale = params[:locale] || session[:locale] || I18n.default_locale
-      locale = locale.to_sym if locale.respond_to?(:to_sym)
-      locale = I18n.default_locale unless I18n.available_locales.include?(locale)
-      session[:locale] = locale.to_s if params[:locale]
-      I18n.with_locale(locale, &action)
-    end
+    locale = params[:locale] || session[:locale] || I18n.default_locale
+    locale = locale.to_sym if locale.respond_to?(:to_sym)
+    locale = I18n.default_locale unless I18n.available_locales.include?(locale)
+    session[:locale] = locale.to_s if params[:locale]
+    I18n.with_locale(locale, &action)
   end
 
   def logged_in?
