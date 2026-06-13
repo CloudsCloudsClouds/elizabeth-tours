@@ -10,8 +10,18 @@ class Admin::ExpertSystemControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
-  test "index" do
+  test "index renders form" do
     get admin_expert_system_url
     assert_response :success
+    assert_select "h1", /Sistema Experto/
+  end
+
+  test "shows error when EXPT_LINK is not set" do
+    orig = ENV.delete("EXPT_LINK")
+    get admin_expert_system_url, params: { gravity: 3, fuel_severity: 2, description: "Test" }
+    assert_response :success
+    assert_select ".text-red-600", /EXPT_LINK/
+  ensure
+    ENV["EXPT_LINK"] = orig
   end
 end
