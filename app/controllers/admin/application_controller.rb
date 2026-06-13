@@ -13,6 +13,10 @@ module Admin
       end
     end
 
+    def user_for_paper_trail
+      Current.user&.id
+    end
+
     # Override to skip resources without a corresponding dashboard (e.g. admin/expert_system)
     helper_method :dashboard_from_resource
 

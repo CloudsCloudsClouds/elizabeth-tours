@@ -1,7 +1,7 @@
-<div class="max-w-2xl mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-6 text-gray-800">Sistema Experto - Evaluar Bloqueo</h1>
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">Sistema Experto - Evaluar Escenario</h1>
 
-  <%= form_tag admin_expert_system_path, method: :get, class: "space-y-6 bg-white p-6 rounded-lg shadow-md" do %>
+  <%= form_tag admin_expert_system_path, method: :get, class: "space-y-6 bg-white p-6 rounded-lg shadow-md mb-8" do %>
     <div>
       <%= label_tag :gravity, "Gravedad (1-5)", class: "block font-medium text-gray-700 mb-1" %>
       <%= select_tag :gravity,
@@ -11,9 +11,17 @@
     </div>
 
     <div>
+      <%= label_tag :fuel_severity, "Severidad de Combustible (1-5)", class: "block font-medium text-gray-700 mb-1" %>
+      <%= select_tag :fuel_severity,
+          options_for_select([["Normal", 1], ["Escasez Leve", 2], ["Escasez Moderada", 3], ["Escasez Grave", 4], ["Sin Combustible", 5]], params[:fuel_severity]),
+          prompt: "Seleccionar severidad",
+          class: "select select-bordered w-full" %>
+    </div>
+
+    <div>
       <%= label_tag :description, "Descripción (opcional)", class: "block font-medium text-gray-700 mb-1" %>
       <%= text_field_tag :description, params[:description],
-          placeholder: "Ej: Huelga en Tiquina",
+          placeholder: "Ej: Bloqueo en Tiquina",
           class: "input input-bordered w-full" %>
     </div>
 
@@ -23,15 +31,69 @@
   <% end %>
 
   <% if @api_response %>
-    <div class="mt-8 bg-gray-50 p-6 rounded-lg shadow-md border">
-      <h2 class="text-xl font-semibold mb-3 text-gray-800">
-        Respuesta
-        <span class="text-sm font-normal text-gray-500">(Status: <%= @api_status %>)</span>
-      </h2>
-      <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm whitespace-pre-wrap"><%= JSON.pretty_generate(JSON.parse(@api_response)) rescue @api_response %></pre>
+    <% eval = @api_response["evaluation_results"] %>
+    <% macro = eval["macro_evaluation"] rescue nil %>
+
+    <div class="bg-white p-6 rounded-lg shadow-md border space-y-6">
+      <h2 class="text-xl font-semibold text-gray-800">Resultados de Evaluación</h2>
+
+      <% if macro %>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <span class="text-sm text-blue-600 font-medium">Nivel Social</span>
+            <p class="text-lg font-bold text-blue-800 capitalize"><%= macro["social_level"] %></p>
+          </div>
+          <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+            <span class="text-sm text-yellow-600 font-medium">Nivel Combustible</span>
+            <p class="text-lg font-bold text-yellow-800 capitalize"><%= macro["fuel_level"] %></p>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg border">
+          <h3 class="font-medium text-gray-700 mb-2">Detalles</h3>
+          <p class="text-sm text-gray-600 whitespace-pre-wrap"><%= macro["details"] %></p>
+        </div>
+      <% end %>
+
+      <% if eval["route_decisions"].present? %>
+        <div>
+          <h3 class="font-medium text-gray-700 mb-3">Decisiones por Ruta</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-zebra w-full text-sm">
+              <thead>
+                <tr>
+                  <th>Ruta</th>
+                  <th>Acción</th>
+                  <th>Autoridad</th>
+                  <th>Explicación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% eval["route_decisions"].each do |d| %>
+                  <tr>
+                    <td class="font-medium"><%= d["route"].humanize %></td>
+                    <td>
+                      <span class="badge <%= d["action"] == "modificar" ? "badge-warning" : "badge-error" %>">
+                        <%= d["action"].humanize %>
+                      </span>
+                    </td>
+                    <td><%= d["authority"].humanize %></td>
+                    <td class="max-w-md whitespace-pre-wrap"><%= d["explanation"] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <% end %>
+
+      <details class="text-sm text-gray-500">
+        <summary class="cursor-pointer hover:text-gray-700">Ver respuesta JSON cruda</summary>
+        <pre class="mt-2 bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-xs whitespace-pre-wrap"><%= JSON.pretty_generate(@api_response) %></pre>
+      </details>
     </div>
   <% elsif @api_error %>
-    <div class="mt-8 bg-red-50 p-6 rounded-lg shadow-md border border-red-200">
+    <div class="bg-red-50 p-6 rounded-lg shadow-md border border-red-200">
       <h2 class="text-xl font-semibold mb-3 text-red-800">Error</h2>
       <p class="text-red-600"><%= @api_error %></p>
     </div>

@@ -73,6 +73,14 @@ gem "administrate"
 
 gem "administrate-field-active_storage"
 
+gem "paper_trail"
+
+gem "chartkick"
+gem "groupdate"
+
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
+
 gem "csv", "~> 3.3"
 
 gem "simplecov", "~> 0.22.0"

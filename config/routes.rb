@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     resources :tours
     resources :users
 
+    get "versions", to: "versions#index"
+    get "versions/:id", to: "versions#show", as: :version
+
+    get "reports", to: "reports#index"
+
     root to: "tours#index"
   end
   resources :tours, only: [ :index, :show ]
