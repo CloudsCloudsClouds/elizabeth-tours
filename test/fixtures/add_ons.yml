@@ -1,13 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   tour: one
-  name: MyString
-  status: available
+  name: Guide
+  active: true
+  status: active
   price: 10.50
 
 two:
   tour: two
-  name: MyString
-  status: available
-  price: 15.
+  name: Lunch
+  active: true
+  status: active
+  price: 15.00

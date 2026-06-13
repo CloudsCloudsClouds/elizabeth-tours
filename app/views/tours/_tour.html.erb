@@ -1,0 +1,7 @@
+<div id="<%= dom_id tour %>">
+  <h2 class="card-title text-secondary"><%= tour.translated_name %></h2>
+  <% if tour.description.present? %>
+    <p class="text-base-content/70 text-sm"><%= truncate(tour.translated_description, length: 120) %></p>
+  <% end %>
+  <p class="text-2xl font-bold text-primary mt-2"><%= number_to_currency(tour.base_price) %></p>
+</div>

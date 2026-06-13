@@ -59,6 +59,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "ruby-lsp", require: false
+  gem "ruby-lsp-rails", require: false
 end
 
 group :test do
@@ -66,3 +68,19 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "administrate"
+
+gem "administrate-field-active_storage"
+
+gem "paper_trail"
+
+gem "chartkick"
+gem "groupdate"
+
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
+
+gem "csv", "~> 3.3"
+
+gem "simplecov", "~> 0.22.0"
